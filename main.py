@@ -18,7 +18,7 @@ class Help(commands.DefaultHelpCommand):
         lines = []
         for cog in cogs:
             for command in cogs[cog]:
-                if commands.hidden:
+                if command.hidden:
                     continue
                 line ='**{}** *{}*'.format(
                     self.get_command_signature(command),
