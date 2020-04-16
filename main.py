@@ -4,6 +4,7 @@ import typing
 import logging
 import re
 import traceback
+import systemd.daemon
 
 from tools import eyedropper
 from tools import countdown as ctd_main
@@ -138,4 +139,5 @@ async def sudo(ctx, user: discord.Member, *, message):
     await imitate.imitate(ctx, user, message)
 
 
+systemd.daemon.notify('READY=1')
 bot.run(TOKEN)
