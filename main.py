@@ -140,7 +140,7 @@ async def sudo(ctx, user: discord.Member, *, message):
     await imitate.imitate(ctx, user, message)
 
 
-@commands.command(brief='See the guilds.', hidden=True)
+@bot.command(brief='See the guilds.', hidden=True)
 @commands.is_owner()
 async def snoop(self, ctx):
     """
