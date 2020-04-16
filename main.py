@@ -18,6 +18,8 @@ class Help(commands.DefaultHelpCommand):
         lines = []
         for cog in cogs:
             for command in cogs[cog]:
+                if commands.hidden:
+                    continue
                 line ='**{}** *{}*'.format(
                     self.get_command_signature(command),
                     command.brief or Help.brief
@@ -136,6 +138,24 @@ async def sudo(ctx, user: discord.Member, *, message):
     `{{pre}}s @Someone Light theme is good.`
     """
     await imitate.imitate(ctx, user, message)
+
+
+@commands.command(brief='See the guilds.', hidden=True)
+@commands.is_owner()
+async def snoop(self, ctx):
+    """
+    See servers with their counts and invites.
+    """
+    rows = []
+    for i in bot.guilds:
+        line = f'{i.name} | {len(i.members)}'
+        try:
+            invs = await i.invites()
+            line = invs[0].url
+        except Exception:
+            pass
+        rows.append(line)
+    await ctx.send('\n'.join(rows))
 
 
 bot.run(TOKEN)
