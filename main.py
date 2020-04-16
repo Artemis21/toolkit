@@ -142,7 +142,7 @@ async def sudo(ctx, user: discord.Member, *, message):
 
 @bot.command(brief='See the guilds.', hidden=True)
 @commands.is_owner()
-async def snoop(self, ctx):
+async def snoop(ctx):
     """
     See servers with their counts and invites.
     """
