@@ -8,6 +8,7 @@ import traceback
 from tools import eyedropper
 from tools import countdown as ctd_main
 from tools import imitate
+from tools import dice
 
 
 class Help(commands.DefaultHelpCommand):
@@ -43,7 +44,7 @@ class Help(commands.DefaultHelpCommand):
 
 
 logging.basicConfig(level=logging.INFO)
-bot = commands.Bot(command_prefix='t?')
+bot = commands.Bot(command_prefix='--')
 bot.help_command = Help()
 TOKEN = 'Njk5Mzg0NzQ2NzI3MTc4MjQ1.XpTo2g._eKyv8WVg1iK2wfJXlusclmX5dU'
 DESC = (
@@ -128,8 +129,7 @@ async def countdown(ctx, *, time: ctd_main.time_conv):
 @bot.command(brief='Imitate someone.', aliases=['s'])
 @commands.guild_only()
 async def sudo(ctx, user: discord.Member, *, message):
-    """
-    Send a message that looks like it's from someone else.
+    """Send a message that looks like it's from someone else.
 
     Short name: `s`
 
@@ -140,12 +140,36 @@ async def sudo(ctx, user: discord.Member, *, message):
     await imitate.imitate(ctx, user, message)
 
 
+@bot.command(brief='Roll Star Wars dice.', aliases=['sw'])
+async def starwars(ctx, *, all_dice: dice.dice_args):
+    """Roll some Star Wars Fantasy Flight Gaming dice.
+
+    Short name: `sw`
+
+    Examples:
+    `{{pre}}starwars 10 red, 5 black`
+    `{{pre}}sw 1 green, 3 white, 2 black`
+    """
+    await dice.roll_sw(ctx, all_dice)
+
+
+@bot.command(brief='Roll L5R dice.', aliases=['l5r'])
+async def fiverings(ctx, *, all_dice: dice.dice_args):
+    """Roll some Legend of the Five Rings dice.
+
+    Short name: `l5r`
+
+    Examples:
+    `{{pre}}fiverings 2 black`
+    `{{pre}}l5r 10 white, 3 black`
+    """
+    await dice.roll_l5r(ctx, all_dice)
+
+
 @bot.command(brief='See the guilds.', hidden=True)
 @commands.is_owner()
 async def snoop(ctx):
-    """
-    See servers with their counts and invites.
-    """
+    """See servers with their counts and invites."""
     rows = []
     for i in bot.guilds:
         line = f'{i.name} | {len(i.members)}'
