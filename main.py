@@ -46,7 +46,7 @@ class Help(commands.DefaultHelpCommand):
 logging.basicConfig(level=logging.INFO)
 bot = commands.Bot(command_prefix='t?')
 bot.help_command = Help()
-TOKEN = 'Njk5Mzg0NzQ2NzI3MTc4MjQ1.XpTo2g._eKyv8WVg1iK2wfJXlusclmX5dU'
+TOKEN = 'INSERT-TOKEN-HERE'
 DESC = (
     'Toolkit is a collection of simple tools for Discord made by Artemis#8799.'
 )
